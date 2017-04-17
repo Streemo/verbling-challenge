@@ -33,7 +33,6 @@ export default class Dashboard extends React.Component {
     return this.state.items.reduce((matching, item) => {
 
       // only add matching (case insensitive) elements to the result set (or all if no search entered)
-
       if (!search || item.lowerCaseText.indexOf(search.toLowerCase()) > -1){
         matching.push(
           <Item 
@@ -55,7 +54,7 @@ export default class Dashboard extends React.Component {
 
       if (!id || id === i.id)
         isOpen = newState === "open" ? true : newState === "close" ? false : !isOpen
-      return {id:i.id, text:i.text, isOpen};
+      return {id:i.id, text:i.text, isOpen, lowerCaseText: i.lowerCaseText};
     })})
   }
 
