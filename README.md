@@ -1,6 +1,7 @@
 # Verbling React Challenge
 
 [Here's a video of my submission](http://solution-for-jake.s3-website-us-west-1.amazonaws.com/video.html)
+
 [Here's a link you can go to play with it](http://solution-for-jake.s3-website-us-west-1.amazonaws.com)
 
 ![](docs/spec.png)
