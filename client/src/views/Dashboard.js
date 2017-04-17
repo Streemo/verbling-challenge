@@ -5,26 +5,36 @@ import Item from "./Item";
 import { items } from "../fixtures";
 
 export default class Dashboard extends React.Component {
+
   constructor(props,context){
     super(props,context)
 
     // Store item toggle state in parent as parent needs to control the state.
 
-    // Alternatively, could keep state on child component AND pass props of state from parent
-    //   This would require using componentWillReceive props on the child.
-    //   This can be buggy and brittle, instead make children dumb components.
-    //   Let React reconcile the state to avoid bugs.
+    //   Alternatively, could keep state on child component too
+    //   Would require using componentWillReceive props on the child.
+    //   Can be buggy, instead make children dumb components.
 
     // init the fixture data with isOpen state.
-    this.state = {items: items.map(i => ({id:i.id, text:i.text, isOpen:false}))}
+    // cache lowerCaseText for performance
+    this.state = {
+      items: items.map(
+        i => ({
+          id:i.id, 
+          text:i.text, 
+          lowerCaseText: i.text.toLowerCase(), 
+          isOpen:false
+        })
+      )
+    }
   }
+
   _renderMatchingItems(search){
     return this.state.items.reduce((matching, item) => {
 
-      // only add matching elements to the result set (or all if no search entered)
-      // let's make it case-insensitive 
+      // only add matching (case insensitive) elements to the result set (or all if no search entered)
 
-      if (!search || item.text.toLowerCase().indexOf(search.toLowerCase()) > -1){
+      if (!search || item.lowerCaseText.indexOf(search.toLowerCase()) > -1){
         matching.push(
           <Item 
             key={item.id} 
@@ -36,6 +46,7 @@ export default class Dashboard extends React.Component {
       return matching;
     }, [])
   }
+
   _updateItemState(newState, id){
     this.setState({items: this.state.items.map(i => {
       let isOpen = i.isOpen;
@@ -47,14 +58,16 @@ export default class Dashboard extends React.Component {
       return {id:i.id, text:i.text, isOpen};
     })})
   }
+
   render() {
     const search = this.props.search;
 
     // have a smart empty-message.
+    const emptyMessage = search ? "No items match your search :(" : "No items! Add some below :)";
 
     return (
       <div>
-        <List emptyMessage={search ? "No items match your search :(" : "No items! Add some below :)"}>
+        <List emptyMessage={emptyMessage}>
           {this._renderMatchingItems(search)}
         </List>
         <Controls 

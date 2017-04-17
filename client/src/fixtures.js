@@ -15,4 +15,4 @@ export const items = [
   {id: guid(), text: "Scones are half bread half cookies. Chocolate chip scones are heavenly."}
 ]
 
-// text sources are from Wikipedia!
+// some text sources are from Wikipedia https://en.wikipedia.org/wiki/Quantum_mechanics

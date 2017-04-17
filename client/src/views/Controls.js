@@ -8,12 +8,14 @@ const toggleButtons = [
 ]
 
 export default class Controls extends React.Component {
+
   _addItem(){
     const text = window.prompt("Please add a new item!")
     if (text != null){
-      this.props.onNewItem({id: guid(), text, isOpen:false})
+      this.props.onNewItem({id: guid(), text, isOpen:false, lowerCaseText:text.toLowerCase()})
     }
   }
+
   render() {
     return (
       <div className="buffer-top">
